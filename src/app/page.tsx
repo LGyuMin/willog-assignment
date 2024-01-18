@@ -1,113 +1,136 @@
+'use client'
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 
+import SearchIcon from '@/components/icons/SearchIcon'
+import PhotoList from '@/components/PhotoList'
+import Pagination from '@/components/Pagination'
+import NoResult from '@/components/NoResult'
+
+import useUnplash from '@/hooks/useUnplash'
+
+import { IPhoto } from '@/types/photo'
+
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    const [randomPhoto, setRandomPhoto] = useState<IPhoto | null>(null);
+    const [searchParma, setSearchParam] = useState({query: '', page: 1, perPage: 20})
+    const [photoList, setPhotoList] = useState<IPhoto[] | null>(null)
+    const [total, setTotal] = useState(0)
+    const { photos, search } = useUnplash()
+    const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    const searchPhotos = useCallback(() => {
+        setSearchParam({query: inputRef.current.value, page: 1, perPage: 20})
+    }, [inputRef])
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+    const searchOnKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.nativeEvent.isComposing) return
+        
+        if (e.key === 'Enter') searchPhotos()
+    }, [inputRef])
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+    const setPage = useCallback((page: number) => {
+        setSearchParam(oldVal => ({...oldVal, page}))
+    }, [])
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+    useEffect(() => {
+        photos.getRandom({
+            query: 'photo',
+            orientation: 'landscape'
+        })
+        .then(res => {
+            if (res.type === 'success') {
+                setRandomPhoto(res.response as IPhoto);
+            } else {
+                console.log(res)
+                throw Error
+            }
+        })
+        .catch(() => {
+            console.log('사진 불러오는데 실패했습니다. 관리자에게 문의하세요.')
+        });
+    }, [])
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    useEffect(() => {
+        let response;
+
+        if (searchParma.query.trim() === '') {
+            response = photos.list(searchParma)
+        } else {
+            response = search.getPhotos(searchParma)
+        }
+
+        response.then(res => {
+            if (res.type === 'success') {
+                setTotal(res.response.total)
+                setPhotoList(res.response!.results as IPhoto[]);
+            } else {
+                console.log(res)
+                throw Error
+            }
+        })
+        .catch(() => {
+            console.log('사진 목록을 가져오는데 문제가 생겼습니다. 관리자에게 문의하세요.')
+        });
+
+    }, [searchParma]);
+
+    return (
+        // <div className='w-full h-[500px] bg-main-banner bg-repeat-x bg-center bg-big flex justify-center items-center'>
+        <main>
+            <div className='w-full h-[350px] bg-slate-500 overflow-hidden relative'>
+                {
+                    randomPhoto
+                    &&
+                    <Image
+                        className='z-10 object-cover'
+                        src={randomPhoto.urls.full}
+                        alt={randomPhoto.alt_description || '사진'}
+                        fill
+                        sizes='100vw'
+                        priority
+                    />
+                }
+                <div className='w-full h-full bg-black/40 absolute top-0 left-0 z-20 flex flex-col justify-center items-center'>
+                    <div className='w-[600px] flex flex-col gap-2'>
+                        <h1 className='font-bold text-white text-6xl mb-2'>Will Photo</h1>
+                        <p className='text-white'>인터넷의 시각자료 출처입니다.</p>
+                        <p className='text-white'>모든 지역에 있는 크리에이터들의 지원을 받습니다.</p>
+                        <div className='flex gap-2 bg-white p-4 rounded-lg mt-2'>
+                            <input 
+                                type="text" 
+                                className='outline-none text-sm'
+                                placeholder='고해상도 이미지 검색'
+                                onKeyDown={searchOnKeyDown}
+                                ref={inputRef}
+                            />
+                            <button onClick={searchPhotos}>
+                                <SearchIcon />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {
+                    photoList === null || photoList!.length === 0
+                ?
+                    <NoResult />
+                :
+                    <PhotoList photos={photoList} type='list' />
+            }
+
+            <div className='w-3/4 max-w-[1200px] min-w-[350px] mx-auto mb-8'>
+                <Pagination
+                    paginationData={{
+                        current_page: searchParma.page,
+                        total: total,
+                        per_page: 20,
+                        last_page: Math.ceil(total / 20)
+                    }}
+                    onClickPage={setPage}
+                />
+            </div>
+        </main>
+    )
 }
