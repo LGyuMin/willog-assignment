@@ -1,4 +1,4 @@
-import { Full, Basic } from 'unsplash-js/dist/methods/photos/types';
+import { Full } from 'unsplash-js/dist/methods/photos/types';
 
 export interface IPhoto extends Full {
     downloads: number;
