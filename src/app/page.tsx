@@ -7,6 +7,7 @@ import SearchIcon from '@/components/icons/SearchIcon'
 import PhotoList from '@/components/PhotoList'
 import Pagination from '@/components/Pagination'
 import NoResult from '@/components/NoResult'
+import Loading from '@/components/Loading'
 
 import useUnplash from '@/hooks/useUnplash'
 
@@ -16,6 +17,7 @@ export default function Home() {
     const [randomPhoto, setRandomPhoto] = useState<IPhoto | null>(null);
     const [searchParma, setSearchParam] = useState({query: '', page: 1, perPage: 20})
     const [photoList, setPhotoList] = useState<IPhoto[] | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
     const [total, setTotal] = useState(0)
     const { photos, search } = useUnplash()
     const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
@@ -53,6 +55,8 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
+        setIsLoading(true)
+
         let response;
 
         if (searchParma.query.trim() === '') {
@@ -69,15 +73,22 @@ export default function Home() {
                 console.log(res)
                 throw Error
             }
+            setIsLoading(false)
         })
         .catch(() => {
             console.log('사진 목록을 가져오는데 문제가 생겼습니다. 관리자에게 문의하세요.')
+            setIsLoading(false)
         });
 
     }, [searchParma]);
 
     return (
         <main>
+            {
+                isLoading
+                &&
+                <Loading />
+            }
             <div className='w-full h-[350px] bg-slate-500 overflow-hidden relative'>
                 {
                     randomPhoto
