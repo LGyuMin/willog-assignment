@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import dayjs from 'dayjs'
@@ -18,7 +18,7 @@ import useBookmark from '@/hooks/useBookmark'
 const descTitle = 'text-gray-400 font-bold text-sm'
 const descDetail = 'font-bold text-sm'
 
-export default function PhotoDetail({ 
+function PhotoDetail({ 
     photoId,
     isModal
 }: { 
@@ -112,3 +112,5 @@ export default function PhotoDetail({
         </div>
     )
 }
+
+export default React.memo(PhotoDetail)
