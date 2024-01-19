@@ -17,16 +17,7 @@ function Photo({
     type: 'list' | 'bookmark'
 }) {
 
-    const { bookmartPhotos, addBookmark, removeBookmark } = useBookmark()
-
-    const isLiked = useMemo(() => {
-        return bookmartPhotos.some(item => item === photoId)
-    }, [bookmartPhotos])
-
-    const toggleBookmark = useCallback(() => {
-        if (isLiked) removeBookmark(photoId)
-        else addBookmark(photoId)
-    }, [isLiked])
+    const { isLiked, toggleBookmark } = useBookmark(photoId)
 
     return (
         <div className='relative flex items-center justify-center overflow-hidden w-[278px] h-[278px]'>
