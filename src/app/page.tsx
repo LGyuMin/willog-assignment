@@ -77,7 +77,6 @@ export default function Home() {
     }, [searchParma]);
 
     return (
-        // <div className='w-full h-[500px] bg-main-banner bg-repeat-x bg-center bg-big flex justify-center items-center'>
         <main>
             <div className='w-full h-[350px] bg-slate-500 overflow-hidden relative'>
                 {
@@ -100,7 +99,7 @@ export default function Home() {
                         <div className='flex gap-2 bg-white p-4 rounded-lg mt-2'>
                             <input 
                                 type="text" 
-                                className='outline-none text-sm'
+                                className='outline-none text-sm w-full'
                                 placeholder='고해상도 이미지 검색'
                                 onKeyDown={searchOnKeyDown}
                                 ref={inputRef}
