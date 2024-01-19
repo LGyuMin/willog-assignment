@@ -19,7 +19,7 @@ export default function useAuth(redirect_url: string) {
                 router.back()
             }
         }
-    }, [token, pathname, code])
+    }, [token, code])
 
     useEffect(() => {
         if (pathname === '/bookmark') {
@@ -43,6 +43,7 @@ export default function useAuth(redirect_url: string) {
                 if (res.ok) {
                     console.log(res)
                 } else {
+                    console.log(res)
                     throw Error
                 }
             })
