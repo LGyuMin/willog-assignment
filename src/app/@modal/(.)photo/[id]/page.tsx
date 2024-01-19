@@ -13,6 +13,7 @@ import Tag from '@/components/Tag'
 import useUnplash from '@/hooks/useUnplash'
 
 import { IPhoto } from '@/types/photo'
+import useBookmark from '@/hooks/useBookmark'
 
 const descTitle = 'text-gray-400 font-bold text-sm'
 const descDetail = 'font-bold text-sm'
@@ -24,6 +25,7 @@ export default function page({
 }) {
     const router = useRouter()
     const [photo, setPhoto] = useState<IPhoto | null>(null)
+    const { isLiked, toggleBookmark } = useBookmark(params.id)
     const { photos } = useUnplash()
 
     const closeModal = useCallback(() => {
@@ -45,21 +47,6 @@ export default function page({
 
     }, [photo])
 
-    const toggleBookmark = useCallback((id: string) => {
-        const options = {
-            method: 'POST',
-            headers: { Authorization: 'Bearer ACCESS_TOKEN' }
-        }
-
-        fetch(`https://api.unsplash.com/photos/${id}/like`, options)
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, [])
-
     if (photo === null) return null
 
     return (
@@ -74,10 +61,9 @@ export default function page({
                             { photo.user.name }
                         </p>
 
-                        <span onClick={() => toggleBookmark(params.id)}>
-                            <BookMartIcon size='large' />
+                        <span onClick={toggleBookmark} className='cursor-pointer'>
+                            <BookMartIcon size='large' isLiked={isLiked} />
                         </span>
-
 
                         <button className='ml-2 btn'>다운로드</button>
                 </div>

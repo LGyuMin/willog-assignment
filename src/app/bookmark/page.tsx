@@ -1,35 +1,39 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import Photo from '@/components/Photo'
 import NoResult from '@/components/NoResult'
 import PhotoList from '@/components/PhotoList'
 
 import useUnplash from '@/hooks/useUnplash'
 
 import { IPhoto } from '@/types/photo'
+import useBookmark from '@/hooks/useBookmark'
 
 const navItemClassName = 'text-sm text-gray-500 pb-1 box-border'
 const active = '!text-black border-black border-b-2'
 
 export default function page() {
-    const { users } = useUnplash()
+    const { bookmartPhotos } = useBookmark()
+    const { photos } = useUnplash()
     const [photoList, setPhotoList] = useState<IPhoto[] | null>(null)
-    const [total, setTotal] = useState(0)
-    useEffect(() => {
-        users.getLikes({
-            username: 'gyumin_047',
+
+    const getLikedPhotos = useCallback(() => {
+        photos.list({
             page: 1,
-            perPage: 10
+            perPage: 1000
         })
         .then(res => {
             if (res.type === 'success') {
-                setTotal(res.response.total)
-                setPhotoList(res.response.results as IPhoto[]);
+                const filteredPhotos = res.response.results.filter(item => bookmartPhotos.includes(item.id))
+                setPhotoList(filteredPhotos as IPhoto[]);
             }
         })
-    }, [])
+    }, [bookmartPhotos])
+
+    useEffect(() => {
+        getLikedPhotos()
+    }, [bookmartPhotos])
     return (
         <main>
             <div className='w-full mt-4 flex justify-center items-center'>
