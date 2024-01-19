@@ -20,7 +20,8 @@ function PhotoList({
                 photos.map(photo => (
                     <Link 
                         key={photo.id}
-                        href={`/photo/${photo.id}`} 
+                        href={`/photo/${photo.id}`}
+                        scroll={false}
                     >
                         <Photo
                             photoId={photo.id}
