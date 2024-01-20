@@ -1,7 +1,7 @@
 import Modal from '@/components/Modal'
 import PhotoDetail from '@/components/PhotoDetail'
 
-export default function page({ 
+export default function PhotoDatailModal({ 
     params 
 }: { 
     params: {id: string};

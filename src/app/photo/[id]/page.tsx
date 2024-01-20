@@ -1,6 +1,6 @@
 import PhotoDetail from '@/components/PhotoDetail'
 
-export default function page({ 
+export default function PhotoDetailPage({ 
     params
 }: {
     params: { id: string }

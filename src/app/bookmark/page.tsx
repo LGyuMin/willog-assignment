@@ -13,7 +13,7 @@ import useBookmark from '@/hooks/useBookmark'
 const navItemClassName = 'text-sm text-gray-500 pb-1 box-border'
 const active = '!text-black border-black border-b-2'
 
-export default function page() {
+export default function BookmarkPage() {
     const { bookmartPhotos } = useBookmark()
     const { photos } = useUnplash()
     const [photoList, setPhotoList] = useState<IPhoto[] | null>(null)
