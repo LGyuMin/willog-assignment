@@ -5,6 +5,7 @@
   - 사용자가 북마크 버튼을 클릭하면 해당 사진의 ID 값을 store에 저장합니다.
   - /bookmark로 이동 시, 사진 리스트를 불러오는 api를 호출하여 그 중 store에 저장된 사진의 아이디에 해당하는 이미지만 렌더링합니다.
 - 인증관련 로직은 src/hooks/useAuth.ts에 작성해 두었으니 참고 부탁드립니다.
+- [결과물 보러가기](https://willog-assignment.vercel.app/)
 
 
 # 프로젝트 세팅
