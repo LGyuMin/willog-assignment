@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 프로젝트 설명
+- Unsplash API를 사용해 만든 프론트 엔드 과제로 Next.js + TypeScript 기반의 프로젝트입니다.
+- Functional Component 방식을 사용했으며, Tailwind를 사용해 스타일 작업을 했습니다.
+- Unsplash API를 사용해 북마크 기능을 구현하려면 인증을 해야하는데, 인증 API 호출 시 500 에러가 발생하여 해당 기능은 아래와 같이 구현했습니다.(Unsplash 개발팀에 메일로 문의했으나 답변을 받지 못함)
+  - 사용자가 북마크 버튼을 클릭하면 해당 사진의 ID 값을 store에 저장합니다.
+  - /bookmark로 이동 시, 사진 리스트를 불러오는 api를 호출하여 그 중 store에 저장된 사진의 아이디에 해당하는 이미지만 렌더링합니다.
+- 인증관련 로직은 src/hooks/useAuth.ts에 작성해 두었으니 참고 부탁드립니다.
 
-## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 프로젝트 세팅
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# 실행
+- 개발 모드
+```
+npm run dev
+```
+- 배포
+```
+npm run build
+```
