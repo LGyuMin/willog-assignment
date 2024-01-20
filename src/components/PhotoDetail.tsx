@@ -54,7 +54,7 @@ function PhotoDetail({
     if (photoInfo === null) return null
 
     return (
-        <div className='w-[600px] bg-white mx-auto rounded-lg p-3 flex flex-col gap-5'>
+        <div className='w-4/5 md:w-[750px] bg-white mx-auto rounded-lg p-3 flex flex-col gap-5'>
             <div className='flex items-center'>
                 {
                     isModal
@@ -74,7 +74,7 @@ function PhotoDetail({
 
                 <button className='ml-2 btn'>다운로드</button>
             </div>
-            <div className='w-full h-[400px] relative'>
+            <div className='w-full h-[300px] md:h-[400px] relative'>
                 <Image
                     className='object-contain'
                     src={photoInfo.urls.regular}

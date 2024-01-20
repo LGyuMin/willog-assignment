@@ -103,7 +103,7 @@ export default function Home() {
                     />
                 }
                 <div className='w-full h-full bg-black/40 absolute top-0 left-0 z-20 flex flex-col justify-center items-center'>
-                    <div className='w-[600px] flex flex-col gap-2'>
+                    <div className='w-4/5 md:w-[600px] flex flex-col gap-2'>
                         <h1 className='font-bold text-white text-6xl mb-2'>Will Photo</h1>
                         <p className='text-white'>인터넷의 시각자료 출처입니다.</p>
                         <p className='text-white'>모든 지역에 있는 크리에이터들의 지원을 받습니다.</p>
