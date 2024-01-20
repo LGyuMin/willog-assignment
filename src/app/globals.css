@@ -7,7 +7,16 @@
         @apply text-sm text-gray-500 px-2 py-1 border border-gray-500 rounded-md
     }
 
+    /* 페이지네이션 버튼 스타일 */
     .page-btn {
         @apply flex items-center justify-center min-w-[24px] h-[24px] px-1 box-border rounded-sm text-xs cursor-pointer hover:bg-gray-100
+    }
+
+    .active {
+        @apply bg-gray-200 hover:bg-gray-300
+    }
+
+    .disabled {
+        @apply text-gray-300 cursor-not-allowed hover:bg-white
     }
 }

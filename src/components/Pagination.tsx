@@ -90,7 +90,7 @@ function Pagination({
                     :
                         <span 
                             key={item.i}
-                            className={classNames('page-btn', { 'rotate-180': item.i === 'nextPage', 'bg-gray-200 hover:bg-gray-300': item.active })}
+                            className={classNames('page-btn', { 'rotate-180': item.i === 'nextPage', active: item.active, disabled: item.href === null && !item.active })}
                             onClick={() => clickPage(item.href)}
                         >
                             {
