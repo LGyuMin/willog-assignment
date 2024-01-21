@@ -84,11 +84,7 @@ export default function Home() {
 
     return (
         <main>
-            {
-                isLoading
-                &&
-                <Loading />
-            }
+            { isLoading && <Loading /> }
             <div className='w-full h-[350px] bg-slate-500 overflow-hidden relative'>
                 {
                     randomPhoto
