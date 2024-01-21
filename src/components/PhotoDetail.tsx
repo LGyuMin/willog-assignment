@@ -79,6 +79,8 @@ function PhotoDetail({
                     src={photoInfo.urls.regular}
                     alt={photoInfo.alt_description || '사진'}
                     fill
+                    placeholder='blur'
+                    blurDataURL='data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8deLEfwAIGQNbF0JltAAAAABJRU5ErkJggg=='
                     sizes='(max-width: 768px) 90vw, (max-width: 1200px) 50vw'
                 />
             </div>

@@ -25,6 +25,8 @@ function Photo({
                 alt={photo.alt_description || '사진'}
                 fill
                 sizes='(max-width: 768px) 90vw, (max-width: 1200px) 50vw'
+                placeholder='blur'
+                blurDataURL='data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8deLEfwAIGQNbF0JltAAAAABJRU5ErkJggg=='
                 priority
             />
             <span 
