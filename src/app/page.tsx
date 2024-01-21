@@ -57,7 +57,7 @@ export default function Home() {
     useEffect(() => {
         setIsLoading(true)
 
-        let response;
+        let response
 
         if (searchParma.query.trim() === '') {
             response = photos.list(searchParma)

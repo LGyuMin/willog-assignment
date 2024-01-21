@@ -20,13 +20,13 @@ interface IPagination {
 const makePagination = (data: IPagination) => {
     const paginatioin: IPage[] = []
 
-    if (!data.block) data.block = 5;
+    if (!data.block) data.block = 5
 
     if (data.total > data.per_page) {
         const currentBlock = Math.ceil(data.current_page / data.block),
                 startPage = (Math.max(currentBlock, 1) - 1) * data.block + 1,
                 lastPage = startPage + data.block - 1,
-                lastRoop = Math.min(lastPage, data.last_page);
+                lastRoop = Math.min(lastPage, data.last_page)
         
         paginatioin.push({
             i: 'prevPage', 
@@ -62,15 +62,15 @@ const makePagination = (data: IPagination) => {
         })
     }
 
-    return paginatioin;
+    return paginatioin
 }
 
 function Pagination({
     paginationData,
     onClickPage
 }: {
-    paginationData: IPagination;
-    onClickPage: (i: number) => void;
+    paginationData: IPagination
+    onClickPage: (i: number) => void
 }) {
     const pagination = useMemo(() => makePagination(paginationData), [paginationData])
 

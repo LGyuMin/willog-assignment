@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Link from 'next/link'
 
 import Photo from '@/components/Photo'
@@ -9,7 +9,7 @@ function PhotoList({
     photos,
     type
 }: {
-    photos: IPhoto[];
+    photos: IPhoto[]
     type: 'list' | 'bookmark'
 }) {
     return (
@@ -24,9 +24,7 @@ function PhotoList({
                         scroll={false}
                     >
                         <Photo
-                            photoId={photo.id}
-                            src={photo.urls.small}
-                            alt={photo.alt_description || '사진'}
+                            photo={photo}
                             type={type}
                         />
                     </Link>
@@ -35,9 +33,7 @@ function PhotoList({
                 photos.map(photo => (
                     <Photo 
                         key={photo.id}
-                        photoId={photo.id}
-                        src={photo.urls.small}
-                        alt={photo.alt_description || '사진'}
+                        photo={photo}
                         type={type}
                     />
                 ))

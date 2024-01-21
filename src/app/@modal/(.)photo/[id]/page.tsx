@@ -4,7 +4,7 @@ import PhotoDetail from '@/components/PhotoDetail'
 export default function PhotoDatailModal({ 
     params 
 }: { 
-    params: {id: string};
+    params: {id: string}
 }) {
     return (
         <Modal>

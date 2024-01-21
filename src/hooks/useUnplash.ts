@@ -5,6 +5,6 @@ const unplash = createApi({
 });
 
 export default function useUnplash() {
-    const { search, photos, users } = unplash;
+    const { search, photos, users } = unplash
     return { search, photos, users }
 }

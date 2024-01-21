@@ -23,7 +23,7 @@ export default function useAuth(redirect_url: string) {
 
     useEffect(() => {
         if (pathname === '/bookmark') {
-            checkAuth();
+            checkAuth()
         }
 
         if (token === '' && code) {

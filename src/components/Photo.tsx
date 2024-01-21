@@ -9,13 +9,9 @@ import { IPhoto } from '@/types/photo'
 
 function Photo({
     photo,
-    src,
-    alt,
     type
 }: {
     photo: IPhoto
-    src: string
-    alt: string
     type: 'list' | 'bookmark'
 }) {
 
@@ -25,8 +21,8 @@ function Photo({
         <div className='relative flex items-center justify-center overflow-hidden w-[278px] h-[278px]'>
             <Image
                 className='object-contain scale-150 hover:scale-[1.7] transition ease-in-out'
-                src={src}
-                alt={alt}
+                src={photo.urls.small}
+                alt={photo.alt_description || '사진'}
                 fill
                 sizes='(max-width: 768px) 90vw, (max-width: 1200px) 50vw'
                 priority

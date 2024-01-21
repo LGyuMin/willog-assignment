@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 function Modal({ 
     children 
 }: { 
-    children: React.ReactNode;
+    children: React.ReactNode
 }) {
     const router = useRouter()
     const overlay = useRef() as React.MutableRefObject<HTMLDivElement>
