@@ -5,15 +5,14 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import dayjs from 'dayjs'
 
-import Modal from '@/components/Modal'
 import BookMartIcon from '@/components/icons/BookMartIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 import Tag from '@/components/Tag'
 
 import useUnplash from '@/hooks/useUnplash'
+import useBookmark from '@/hooks/useBookmark'
 
 import { IPhoto } from '@/types/photo'
-import useBookmark from '@/hooks/useBookmark'
 
 const descTitle = 'text-gray-400 font-bold text-sm'
 const descDetail = 'font-bold text-sm'
@@ -22,8 +21,8 @@ function PhotoDetail({
     photoId,
     isModal
 }: { 
-    photoId: string;
-    isModal: boolean;
+    photoId: string
+    isModal: boolean
 }) {
     const router = useRouter()
     const [photoInfo, setPhotoInfo] = useState<IPhoto | null>(null)
@@ -68,7 +67,7 @@ function PhotoDetail({
                     { photoInfo.user.name }
                 </p>
 
-                <span onClick={toggleBookmark} className='cursor-pointer'>
+                <span onClick={() => toggleBookmark(photoInfo)} className='cursor-pointer'>
                     <BookMartIcon size='large' isLiked={isLiked} />
                 </span>
 

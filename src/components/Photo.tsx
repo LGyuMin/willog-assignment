@@ -1,23 +1,25 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 import Image from 'next/image'
 
 import BookMartIcon from '@/components/icons/BookMartIcon'
 
 import useBookmark from '@/hooks/useBookmark';
 
+import { IPhoto } from '@/types/photo'
+
 function Photo({
-    photoId,
+    photo,
     src,
     alt,
     type
 }: {
-    photoId: string;
-    src: string;
-    alt: string;
+    photo: IPhoto
+    src: string
+    alt: string
     type: 'list' | 'bookmark'
 }) {
 
-    const { isLiked, toggleBookmark } = useBookmark(photoId)
+    const { isLiked, toggleBookmark } = useBookmark(photo.id)
 
     return (
         <div className='relative flex items-center justify-center overflow-hidden w-[278px] h-[278px]'>
@@ -31,7 +33,7 @@ function Photo({
             />
             <span 
                 className='absolute bottom-1 right-1 text-white cursor-pointer'
-                { ...(type === 'bookmark' && { onClick: toggleBookmark }) }
+                { ...(type === 'bookmark' && { onClick: () => toggleBookmark(photo) }) }
             >
                 <BookMartIcon
                     size='medium' 
